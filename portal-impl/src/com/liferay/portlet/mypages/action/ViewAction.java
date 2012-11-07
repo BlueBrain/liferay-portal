@@ -20,6 +20,7 @@ import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.struts.PortletAction;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.RenderRequestImpl;
@@ -46,7 +47,7 @@ public class ViewAction extends PortletAction {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws Exception {
 
-		if (renderRequest.getRemoteUser() == null) {
+		if (HttpRequestUtil.getRemoteUser(renderRequest) == null) {
 			return mapping.findForward("portlet.my_pages.view");
 		}
 

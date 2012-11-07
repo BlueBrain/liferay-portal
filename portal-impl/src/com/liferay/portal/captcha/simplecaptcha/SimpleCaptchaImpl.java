@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.InstancePool;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Randomizer;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
@@ -302,7 +303,7 @@ public class SimpleCaptchaImpl implements Captcha {
 
 	protected void incrementCounter(PortletRequest portletRequest) {
 		if ((PropsValues.CAPTCHA_MAX_CHALLENGES > 0) &&
-			Validator.isNotNull(portletRequest.getRemoteUser())) {
+			Validator.isNotNull(HttpRequestUtil.getRemoteUser(portletRequest))) {
 
 			PortletSession portletSession = portletRequest.getPortletSession();
 

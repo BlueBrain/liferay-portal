@@ -4179,6 +4179,7 @@ public class PortalImpl implements Portal {
 		}
 
 		long userId = getUserId(request);
+        _log.info("userId:"+String.valueOf(userId));
 
 		if (userId <= 0) {
 
@@ -4187,7 +4188,8 @@ public class PortalImpl implements Portal {
 			// and may not be accessible by the portlet WAR's session. This
 			// behavior is inconsistent across different application servers.
 
-			String remoteUser = request.getRemoteUser();
+            _log.info("remoteUser prior to HttpRequestUtil remapping:"+request.getRemoteUser());
+			String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 			if (remoteUser == null) {
 				return null;
@@ -4195,6 +4197,8 @@ public class PortalImpl implements Portal {
 
 			userId = GetterUtil.getLong(remoteUser);
 		}
+
+        _log.info("final userId:"+String.valueOf(userId));
 
 		user = UserLocalServiceUtil.getUserById(userId);
 

@@ -24,6 +24,7 @@ import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.spring.context.TunnelApplicationContext;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalInstances;
 
 import javax.servlet.ServletException;
@@ -68,7 +69,7 @@ public class RemotingServlet extends DispatcherServlet {
 		try {
 			PortalInstances.getCompanyId(request);
 
-			String remoteUser = request.getRemoteUser();
+			String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 			if (_log.isDebugEnabled()) {
 				_log.debug("Remote user " + remoteUser);

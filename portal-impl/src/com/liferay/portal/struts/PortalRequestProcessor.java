@@ -52,6 +52,7 @@ import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.service.persistence.UserTrackerPathUtil;
 import com.liferay.portal.setup.SetupWizardUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsUtil;
@@ -401,7 +402,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 		sb.append(_PATH_PORTAL_LAYOUT);
 
 		if (!PropsValues.AUTH_FORWARD_BY_LAST_PATH) {
-			if (request.getRemoteUser() != null) {
+			if (HttpRequestUtil.getRemoteUser(request) != null) {
 
 				// If we do not forward by last path and the user is logged in,
 				// forward to the user's default layout to prevent a lagging
@@ -625,7 +626,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 			}
 		}
 
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 		User user = null;
 

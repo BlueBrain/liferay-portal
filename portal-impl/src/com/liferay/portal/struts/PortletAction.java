@@ -34,6 +34,7 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
 
@@ -236,7 +237,7 @@ public class PortletAction extends Action {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException {
 
-		if (actionRequest.getRemoteUser() == null) {
+		if (HttpRequestUtil.getRemoteUser(actionRequest) == null) {
 			HttpServletRequest request = PortalUtil.getHttpServletRequest(
 				actionRequest);
 

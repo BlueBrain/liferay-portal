@@ -28,6 +28,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.Portal;
 import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PortalUtil;
@@ -153,7 +154,7 @@ public class FriendlyURLServlet extends HttpServlet {
 		}
 
 		if (!PropsValues.AUTH_FORWARD_BY_LAST_PATH &&
-			(request.getRemoteUser() != null)) {
+			(HttpRequestUtil.getRemoteUser(request) != null)) {
 
 			return mainPath;
 		}

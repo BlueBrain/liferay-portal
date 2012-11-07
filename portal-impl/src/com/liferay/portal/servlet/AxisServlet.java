@@ -25,6 +25,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalInstances;
 
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class AxisServlet extends com.liferay.util.axis.AxisServlet {
 		try {
 			PortalInstances.getCompanyId(request);
 
-			String remoteUser = request.getRemoteUser();
+			String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 			if (_log.isDebugEnabled()) {
 				_log.debug("Remote user " + remoteUser);

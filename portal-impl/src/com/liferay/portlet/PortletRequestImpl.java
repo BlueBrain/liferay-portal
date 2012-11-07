@@ -43,6 +43,7 @@ import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.servlet.NamespaceServletRequest;
 import com.liferay.portal.servlet.SharedSessionServletRequest;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.portletconfiguration.util.PublicRenderParameterConfiguration;
@@ -732,7 +733,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		_session = new PortletSessionImpl(
 			_request.getSession(), _portletContext, _portletName, plid);
 
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 		String userPrincipalStrategy = portlet.getUserPrincipalStrategy();
 

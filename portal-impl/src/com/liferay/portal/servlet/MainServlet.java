@@ -83,6 +83,7 @@ import com.liferay.portal.setup.SetupWizardUtil;
 import com.liferay.portal.struts.PortletRequestProcessor;
 import com.liferay.portal.struts.StrutsUtil;
 import com.liferay.portal.util.ExtRegistry;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.MaintenanceUtil;
 import com.liferay.portal.util.Portal;
 import com.liferay.portal.util.PortalInstances;
@@ -699,7 +700,7 @@ public class MainServlet extends ActionServlet {
 	}
 
 	protected String getRemoteUser(HttpServletRequest request, long userId) {
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 		if (!PropsValues.PORTAL_JAAS_ENABLE) {
 			HttpSession session = request.getSession();
@@ -1055,6 +1056,12 @@ public class MainServlet extends ActionServlet {
 		}
 
 		userId = GetterUtil.getLong(remoteUser);
+
+        //JCM this seems like the right thing to do here, it mimics
+        //working behaviour if remoteUser == null
+        if (userId == 0) {
+            return 0;
+        }
 
 		EventsProcessorUtil.process(
 			PropsKeys.LOGIN_EVENTS_PRE, PropsValues.LOGIN_EVENTS_PRE, request,

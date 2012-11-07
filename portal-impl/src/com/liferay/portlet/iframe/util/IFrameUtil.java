@@ -26,6 +26,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
@@ -67,7 +68,7 @@ public class IFrameUtil {
 		}
 
 		if (Validator.isNull(userName) || userName.equals("@user_id@")) {
-			userName = portletRequest.getRemoteUser();
+			userName = HttpRequestUtil.getRemoteUser(portletRequest);
 		}
 		else if (userName.equals("@email_address@")) {
 			userName = user.getEmailAddress();

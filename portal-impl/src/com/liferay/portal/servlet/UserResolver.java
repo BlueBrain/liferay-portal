@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalInstances;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,7 @@ public class UserResolver {
 
 		_companyId = ParamUtil.getLong(request, "companyId");
 
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 		if (remoteUser != null) {
 			PrincipalThreadLocal.setName(remoteUser);

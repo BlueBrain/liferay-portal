@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.monitoring.RequestStatus;
 import com.liferay.portal.kernel.monitoring.statistics.DataSampleThreadLocal;
 import com.liferay.portal.monitoring.statistics.portal.PortalRequestDataSample;
 import com.liferay.portal.servlet.filters.BasePortalFilter;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
 
@@ -69,7 +70,7 @@ public class MonitoringFilter extends BasePortalFilter {
 
 		PortalRequestDataSample portalRequestDataSample =
 			new PortalRequestDataSample(
-				companyId, request.getRemoteUser(), request.getRequestURI(),
+				companyId, HttpRequestUtil.getRemoteUser(request), request.getRequestURI(),
 				request.getRequestURL().toString());
 
 		try {

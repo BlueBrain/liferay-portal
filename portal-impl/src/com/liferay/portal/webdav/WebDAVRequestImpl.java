@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.webdav.WebDAVRequest;
 import com.liferay.portal.kernel.webdav.WebDAVStorage;
 import com.liferay.portal.kernel.webdav.WebDAVUtil;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,7 @@ public class WebDAVRequestImpl implements WebDAVRequest {
 		_path = HttpUtil.fixPath(_request.getPathInfo(), false, true);
 		_companyId = PortalUtil.getCompanyId(request);
 		_groupId = WebDAVUtil.getGroupId(_companyId, _path);
-		_userId = GetterUtil.getLong(_request.getRemoteUser());
+		_userId = GetterUtil.getLong(HttpRequestUtil.getRemoteUser(_request));
 		_permissionChecker = permissionChecker;
 	}
 

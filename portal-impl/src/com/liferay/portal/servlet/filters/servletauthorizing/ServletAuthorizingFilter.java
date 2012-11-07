@@ -25,6 +25,7 @@ import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.servlet.filters.BasePortalFilter;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
@@ -57,7 +58,7 @@ public class ServletAuthorizingFilter extends BasePortalFilter {
 		// Authorize
 
 		long userId = PortalUtil.getUserId(request);
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 		if (!PropsValues.PORTAL_JAAS_ENABLE) {
 			String jRemoteUser = (String)session.getAttribute("j_remoteuser");
