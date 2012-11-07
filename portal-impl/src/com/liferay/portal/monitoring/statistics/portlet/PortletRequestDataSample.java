@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.monitoring.MonitorNames;
 import com.liferay.portal.monitoring.statistics.BaseDataSample;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portlet.PortletResponseImpl;
 
 import javax.portlet.PortletRequest;
@@ -40,7 +41,7 @@ public class PortletRequestDataSample extends BaseDataSample {
 		Portlet portlet = portletResponseImpl.getPortlet();
 
 		setCompanyId(portlet.getCompanyId());
-		setUser(portletRequest.getRemoteUser());
+		setUser(HttpRequestUtil.getRemoteUser(portletRequest));
 		setNamespace(MonitorNames.PORTLET);
 		setName(portlet.getPortletName());
 		_portletId = portlet.getPortletId();

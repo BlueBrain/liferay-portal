@@ -39,6 +39,7 @@ import com.liferay.portal.model.impl.PortletFilterImpl;
 import com.liferay.portal.tools.deploy.PortletDeployer;
 import com.liferay.portal.util.ClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.WebKeys;
 
 import java.io.IOException;
@@ -374,7 +375,7 @@ public class InvokerPortletImpl implements InvokerPortlet {
 			stopWatch.start();
 		}
 
-		String remoteUser = renderRequest.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(renderRequest);
 
 		if ((remoteUser == null) || (_expCache == null) ||
 			(_expCache.intValue() == 0)) {

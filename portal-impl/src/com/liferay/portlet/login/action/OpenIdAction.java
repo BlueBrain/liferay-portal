@@ -35,6 +35,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.OpenIdUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsUtil;
@@ -100,7 +101,7 @@ public class OpenIdAction extends PortletAction {
 			throw new PrincipalException();
 		}
 
-		if (actionRequest.getRemoteUser() != null) {
+		if (HttpRequestUtil.getRemoteUser(actionRequest) != null) {
 			actionResponse.sendRedirect(themeDisplay.getPathMain());
 
 			return;

@@ -27,6 +27,7 @@ import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.struts.JSONAction;
 import com.liferay.portal.util.ClassLoaderUtil;
+import com.liferay.portal.util.HttpRequestUtil;
 
 import java.io.IOException;
 
@@ -94,7 +95,7 @@ public class JSONServlet extends HttpServlet {
 	protected void resolveRemoteUser(HttpServletRequest request)
 		throws Exception {
 
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Remote user " + remoteUser);

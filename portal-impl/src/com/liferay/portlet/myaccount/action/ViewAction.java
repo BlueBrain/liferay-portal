@@ -17,6 +17,7 @@ package com.liferay.portlet.myaccount.action;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.model.User;
 import com.liferay.portal.struts.PortletAction;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.RenderRequestImpl;
 

@@ -21,6 +21,7 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletApp;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalUtil;
 
 import java.util.Collections;
@@ -38,7 +39,7 @@ public class UserInfoFactory {
 	public static LinkedHashMap<String, String> getUserInfo(
 		HttpServletRequest request, Portlet portlet) {
 
-		if (request.getRemoteUser() == null) {
+		if (HttpRequestUtil.getRemoteUser(request) == null) {
 			return null;
 		}
 

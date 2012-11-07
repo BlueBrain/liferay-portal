@@ -33,6 +33,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.webdav.methods.Method;
 import com.liferay.portal.webdav.methods.MethodFactory;
@@ -85,7 +86,7 @@ public class WebDAVServlet extends HttpServlet {
 
 			PermissionChecker permissionChecker = null;
 
-			String remoteUser = request.getRemoteUser();
+			String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 			if (remoteUser != null) {
 				PrincipalThreadLocal.setName(remoteUser);

@@ -28,6 +28,7 @@ import com.liferay.portal.security.pwd.PwdEncryptor;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.servlet.filters.BasePortalFilter;
 import com.liferay.portal.util.Portal;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
@@ -167,7 +168,7 @@ public class AutoLoginFilter extends BasePortalFilter {
 			return;
 		}
 
-		String remoteUser = request.getRemoteUser();
+		String remoteUser = HttpRequestUtil.getRemoteUser(request);
 		String jUserName = (String)session.getAttribute("j_username");
 
 		if (!PropsValues.AUTH_LOGIN_DISABLED &&

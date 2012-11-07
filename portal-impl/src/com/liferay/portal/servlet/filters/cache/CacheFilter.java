@@ -45,6 +45,7 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.servlet.filters.BasePortalFilter;
+import com.liferay.portal.util.HttpRequestUtil;
 import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
@@ -366,7 +367,7 @@ public class CacheFilter extends BasePortalFilter {
 
 		if ((_pattern == _PATTERN_FRIENDLY) || (_pattern == _PATTERN_LAYOUT)) {
 			long userId = PortalUtil.getUserId(request);
-			String remoteUser = request.getRemoteUser();
+			String remoteUser = HttpRequestUtil.getRemoteUser(request);
 
 			if ((userId > 0) || Validator.isNotNull(remoteUser)) {
 				return false;
