@@ -798,54 +798,60 @@ public class PortalLDAPImporterImpl implements PortalLDAPImporter {
 		if (PrefsPropsUtil.getBoolean(
 				companyId, PropsKeys.LDAP_IMPORT_GROUP_SEARCH_FILTER_ENABLED)) {
 
-			String postfix = LDAPSettingsUtil.getPropertyPostfix(ldapServerId);
-
-			String baseDN = PrefsPropsUtil.getString(
-				companyId, PropsKeys.LDAP_BASE_DN + postfix);
-
 			Binding binding = PortalLDAPUtil.getUser(
-				ldapServerId, companyId, user.getScreenName(),
-				user.getEmailAddress());
-
-			String fullUserDN = PortalLDAPUtil.getNameInNamespace(
-				ldapServerId, companyId, binding);
-
-			StringBundler sb = new StringBundler(9);
-
-			sb.append(StringPool.OPEN_PARENTHESIS);
-			sb.append(StringPool.AMPERSAND);
-			sb.append(
-				PrefsPropsUtil.getString(
-					companyId,
-					PropsKeys.LDAP_IMPORT_GROUP_SEARCH_FILTER + postfix));
-			sb.append(StringPool.OPEN_PARENTHESIS);
-			sb.append(groupMappings.getProperty("user"));
-			sb.append(StringPool.EQUAL);
-			sb.append(escapeValue(fullUserDN));
-			sb.append(StringPool.CLOSE_PARENTHESIS);
-			sb.append(StringPool.CLOSE_PARENTHESIS);
-
-			byte[] cookie = new byte[0];
-
-			while (cookie != null) {
-				List<SearchResult> searchResults =
-					new ArrayList<SearchResult>();
-
-				String groupMappingsGroupName = GetterUtil.getString(
-					groupMappings.getProperty("groupName")).toLowerCase();
-
-				cookie = PortalLDAPUtil.searchLDAP(
-					companyId, ldapContext, cookie, 0, baseDN, sb.toString(),
-					new String[] {groupMappingsGroupName}, searchResults);
-
-				for (SearchResult searchResult : searchResults) {
-					String fullGroupDN = PortalLDAPUtil.getNameInNamespace(
-						ldapServerId, companyId, searchResult);
-
-					newUserGroupIds = importGroup(
-						ldapServerId, companyId, ldapContext, fullGroupDN, user,
-						groupMappings, newUserGroupIds);
+					ldapServerId, companyId, user.getScreenName(),
+					user.getEmailAddress());
+			
+			if(binding != null) {				
+				String postfix = LDAPSettingsUtil.getPropertyPostfix(ldapServerId);
+	
+				String baseDN = PrefsPropsUtil.getString(
+					companyId, PropsKeys.LDAP_BASE_DN + postfix);
+	
+				String fullUserDN = PortalLDAPUtil.getNameInNamespace(
+					ldapServerId, companyId, binding);
+	
+				StringBundler sb = new StringBundler(9);
+	
+				sb.append(StringPool.OPEN_PARENTHESIS);
+				sb.append(StringPool.AMPERSAND);
+				sb.append(
+					PrefsPropsUtil.getString(
+						companyId,
+						PropsKeys.LDAP_IMPORT_GROUP_SEARCH_FILTER + postfix));
+				sb.append(StringPool.OPEN_PARENTHESIS);
+				sb.append(groupMappings.getProperty("user"));
+				sb.append(StringPool.EQUAL);
+				sb.append(escapeValue(fullUserDN));
+				sb.append(StringPool.CLOSE_PARENTHESIS);
+				sb.append(StringPool.CLOSE_PARENTHESIS);
+	
+				byte[] cookie = new byte[0];
+	
+				while (cookie != null) {
+					List<SearchResult> searchResults =
+						new ArrayList<SearchResult>();
+	
+					String groupMappingsGroupName = GetterUtil.getString(
+						groupMappings.getProperty("groupName")).toLowerCase();
+	
+					cookie = PortalLDAPUtil.searchLDAP(
+						companyId, ldapContext, cookie, 0, baseDN, sb.toString(),
+						new String[] {groupMappingsGroupName}, searchResults);
+	
+					for (SearchResult searchResult : searchResults) {
+						String fullGroupDN = PortalLDAPUtil.getNameInNamespace(
+							ldapServerId, companyId, searchResult);
+	
+						newUserGroupIds = importGroup(
+							ldapServerId, companyId, ldapContext, fullGroupDN, user,
+							groupMappings, newUserGroupIds);
+					}
 				}
+				
+			} else {
+				_log.info("Not importing groups for user '" + user.getScreenName() + "' cause doesn't match the ldap.import.user.search.filter. " +
+							"Set ldap.import.group.search.filter.enabled=false or change the filter to import groups for every user");
 			}
 		}
 		else {

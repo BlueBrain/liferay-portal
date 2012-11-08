@@ -49,7 +49,7 @@ public class ViewAction extends PortletAction {
 		throws Exception {
 
 		if (HttpRequestUtil.getRemoteUser(renderRequest) == null) {
-			return mapping.findForward("portlet.my_pages.view");
+			return actionMapping.findForward("portlet.my_pages.view");
 		}
 
 		if (!renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {

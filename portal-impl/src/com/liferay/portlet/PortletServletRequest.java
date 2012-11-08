@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.util.ServerDetector;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.ClassLoaderUtil;
 import com.liferay.portal.util.HttpRequestUtil;
-import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.util.servlet.GenericServletInputStream;
 
 import java.io.BufferedReader;
