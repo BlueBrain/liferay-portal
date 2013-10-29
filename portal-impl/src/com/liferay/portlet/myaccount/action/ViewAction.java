@@ -43,7 +43,7 @@ public class ViewAction extends PortletAction {
 			RenderResponse renderResponse)
 		throws Exception {
 
-		if (renderRequest.getRemoteUser() == null) {
+		if (HttpRequestUtil.getRemoteUser(renderRequest) == null) {
 			return actionMapping.findForward("portlet.my_account.view");
 		}
 

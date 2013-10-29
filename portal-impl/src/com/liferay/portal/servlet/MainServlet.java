@@ -1057,6 +1057,12 @@ public class MainServlet extends ActionServlet {
             return 0;
         }
 
+        //JCM this seems like the right thing to do here, it mimics
+        //working behaviour if remoteUser == null
+        if (userId == 0) {
+            return 0;
+        }
+
 		EventsProcessorUtil.process(
 			PropsKeys.LOGIN_EVENTS_PRE, PropsValues.LOGIN_EVENTS_PRE, request,
 			response);
